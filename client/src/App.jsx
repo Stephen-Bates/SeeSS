@@ -1,8 +1,10 @@
 import { Outlet } from 'react-router-dom';
+import { Box } from '@chakra-ui/react';
 import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -28,7 +30,10 @@ function App() {
     <ApolloProvider client={client}>
       <>
         <Navbar />
-        <Outlet />
+        <Box className="content">
+          <Outlet />
+        </Box>
+        <Footer />
       </>
     </ApolloProvider>
   );
