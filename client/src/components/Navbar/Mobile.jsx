@@ -3,7 +3,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { Box, Flex, List, ListItem } from '@chakra-ui/react';
 import { useEffect } from 'react';
 
-const Mobile = ({ links, handleSetMobile, isMobile }) => {
+const Mobile = ({ links, handleSetMobile }) => {
   const MOBILE_SIZE = 768;
 
   const handleResize = (e) => {
@@ -19,7 +19,16 @@ const Mobile = ({ links, handleSetMobile, isMobile }) => {
 
   return (
     <Box position="relative" bg="teal.500" minH="50px">
-      <Box p="0.5rem" bg="teal.700" borderRadius={8} position="absolute" w="220px" minH="300px" top="35px" right="0">
+      <Box
+        p="0.5rem"
+        bg="teal.700"
+        borderRadius={8}
+        position="absolute"
+        w="220px"
+        minH={['350px', '400px', '400px']}
+        top="35px"
+        right="0"
+      >
         <Flex
           onClick={() => handleSetMobile(false)}
           justify="flex-end"
@@ -33,7 +42,15 @@ const Mobile = ({ links, handleSetMobile, isMobile }) => {
         <List>
           {links.map((link, index) => {
             return (
-              <ListItem my="0.5rem" mx="0.25rem" color="white" key={index}>
+              <ListItem
+                onClick={() => handleSetMobile(false)}
+                p="0.25rem"
+                _hover={{ background: 'teal.900' }}
+                my="0.5rem"
+                mx="0.25rem"
+                color="white"
+                key={index}
+              >
                 <RouterLink to={link.path}>{link.text}</RouterLink>
               </ListItem>
             );

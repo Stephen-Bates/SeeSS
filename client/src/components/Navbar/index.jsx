@@ -24,7 +24,7 @@ const Navbar = () => {
   return (
     <>
       {isMobile ? (
-        <Mobile handleSetMobile={handleSetMobile} isMobile={isMobile} links={links} />
+        <Mobile handleSetMobile={handleSetMobile} links={links} />
       ) : (
         <Desktop handleSetMobile={handleSetMobile} isMobile={isMobile} links={links} />
       )}

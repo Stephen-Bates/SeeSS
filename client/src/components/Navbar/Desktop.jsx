@@ -2,7 +2,7 @@ import { Box, Flex, Heading, List, ListItem } from '@chakra-ui/react';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { Link as RouterLink } from 'react-router-dom';
 
-const Desktop = ({ links, isMobile, handleSetMobile }) => {
+const Desktop = ({ links, handleSetMobile }) => {
   return (
     <Box bg="teal.500" minH="50px">
       <Flex display={['none', 'none', 'flex']} align="center" justify="space-between" p="0.25rem">
@@ -11,7 +11,7 @@ const Desktop = ({ links, isMobile, handleSetMobile }) => {
         <List display="flex">
           {links.map((link, index) => {
             return (
-              <ListItem mx="0.25rem" color="white" key={index}>
+              <ListItem _hover={{ color: 'gray.200' }} mx="0.25rem" color="white" key={index}>
                 <RouterLink to={link.path}>{link.text}</RouterLink>
               </ListItem>
             );
