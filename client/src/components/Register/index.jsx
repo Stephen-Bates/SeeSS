@@ -16,9 +16,35 @@ const Register = () => {
     [setForm]
   );
 
+  const clearErrors = () => {
+    for (const key of Object.keys(form)) {
+      updateField(key, '', 'error');
+    }
+  };
+
+  const validateForm = () => {
+    let errors = false;
+    for (const key of Object.keys(form)) {
+      if (form[key].value.trim().length === 0 || form[key].error.length) {
+        errors = true;
+      }
+    }
+    return !errors;
+  };
+
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    clearErrors();
+    if (!validateForm()) {
+      return;
+    }
+    console.log('SUBMIT FORM');
+  };
+
   return (
     <Flex justify="center" mt="10rem">
       <Box
+        onSubmit={handleOnSubmit}
         borderRadius={8}
         boxShadow="sm"
         as="form"
@@ -26,6 +52,7 @@ const Register = () => {
         borderColor="gray.300"
         minH="600px"
         w={['100%', '500px', '500px']}
+        mb="1rem"
       >
         <Box mb="4rem" p="0.5rem" textAlign="center">
           <Heading color="gray.600">Create Account</Heading>
@@ -82,8 +109,8 @@ const Register = () => {
             updateField={updateField}
           />
         </Box>
-        <Flex justify="center">
-          <Button width="90%" colorScheme="teal">
+        <Flex p="0.5rem" justify="center">
+          <Button type="submit" width="90%" colorScheme="teal">
             Create account
           </Button>
         </Flex>
