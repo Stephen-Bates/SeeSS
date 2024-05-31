@@ -4,3 +4,8 @@ export const formState = {
   email: { name: 'email', value: '', error: '', type: 'email' },
   password: { name: 'password', value: '', error: '', type: 'password' },
 };
+
+export const loginFormState = {
+  email: { name: 'email', value: '', error: '', type: 'email' },
+  password: { name: 'password', value: '', error: '', type: 'password' },
+};
