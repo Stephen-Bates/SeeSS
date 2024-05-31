@@ -1,6 +1,5 @@
 import { Outlet } from 'react-router-dom';
 import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@apollo/client';
-import { ChakraProvider } from '@chakra-ui/react';
 import { setContext } from '@apollo/client/link/context';
 
 import Navbar from './components/Navbar';
@@ -27,12 +26,10 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      <ChakraProvider>
-        <>
-          <Navbar />
-          <Outlet />
-        </>
-      </ChakraProvider>
+      <>
+        <Navbar />
+        <Outlet />
+      </>
     </ApolloProvider>
   );
 }

@@ -8,6 +8,7 @@ import ProfileRoute from './routes/ProfileRoute';
 import CuratorsRoute from './routes/CuratorsRoute';
 import App from './App.jsx';
 import './index.css';
+import { ChakraProvider } from '@chakra-ui/react';
 
 const router = createBrowserRouter([
   {
@@ -28,7 +29,7 @@ const router = createBrowserRouter([
         element: <RegisterRoute />,
       },
       {
-        path: '/profiles/:id',
+        path: '/profile',
         element: <ProfileRoute />,
       },
       {
@@ -39,4 +40,8 @@ const router = createBrowserRouter([
   },
 ]);
 
-ReactDOM.createRoot(document.getElementById('root')).render(<RouterProvider router={router} />);
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <ChakraProvider>
+    <RouterProvider router={router} />
+  </ChakraProvider>
+);
