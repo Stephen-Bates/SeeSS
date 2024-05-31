@@ -20,6 +20,7 @@ const Mobile = ({ links, handleSetMobile }) => {
   return (
     <Box position="relative" bg="teal.500" minH="50px">
       <Box
+        zIndex={10}
         p="0.5rem"
         bg="teal.700"
         borderRadius={8}
