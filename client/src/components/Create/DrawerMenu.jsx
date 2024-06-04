@@ -8,8 +8,10 @@ import {
   DrawerContent,
   DrawerCloseButton,
   Button,
+  Box,
 } from '@chakra-ui/react';
 import { useRef } from 'react';
+import { IoColorPaletteOutline } from 'react-icons/io5';
 
 const DrawerMenu = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -20,7 +22,7 @@ const DrawerMenu = () => {
     <>
       <Button
         position="absolute"
-        left="-26px"
+        left="-40px"
         transform="rotate(90deg)"
         size="lg"
         m="0"
@@ -28,6 +30,9 @@ const DrawerMenu = () => {
         colorScheme="teal"
         onClick={onOpen}
       >
+        <Box fontSize="1.2rem" mr="0.25rem">
+          <IoColorPaletteOutline />
+        </Box>
         Styles
       </Button>
       <Drawer isOpen={isOpen} placement="left" onClose={onClose} finalFocusRef={btnRef}>

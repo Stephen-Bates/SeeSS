@@ -17,6 +17,7 @@ const Navbar = () => {
     { path: '/', text: 'Home', guest: false },
     { path: '/login', text: 'Login', guest: true },
     { path: '/register', text: 'Register', guest: true },
+    { path: '/create', text: 'Create', guest: false },
     { path: '/profile', text: 'Profile', guest: false },
     { path: '/curators', text: 'Curators', guest: false },
   ];
