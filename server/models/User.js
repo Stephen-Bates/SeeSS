@@ -24,14 +24,13 @@ const userSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Style'
   }],
-
   made_styles: [{
     type: Schema.Types.ObjectId, 
     ref: 'Style'
   }],
   followed_users: [{
     type: Schema.Types.ObjectId,
-    red: 'Style'
+    ref: 'Style'
   }]
 });
 

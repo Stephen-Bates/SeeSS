@@ -11,18 +11,18 @@ const styleSchema = new Schema({
         required: true,
     },
     creation_Date: {
-        type: String,
-        // some way to format date. Will more than likely use moment.js
+        type: DATE,
+        ummatable: true,
+        default: () => Date.now(),
     },
     username: {
         type: String,
         required: true,
     },
-    tag: {
-        type: [
-            { type: String },
-        ],
-    }
+    tag: [{
+        type: String
+    }]
+
 
 });
 
