@@ -4,15 +4,11 @@ const { Schema } = mongoose;
 const bcrypt = require('bcrypt');
 
 const userSchema = new Schema({
-  firstName: {
+  username: {
     type: String,
     required: true,
-    trim: true,
-  },
-  lastName: {
-    type: String,
-    required: true,
-    trim: true,
+    unique: true,
+    minlength: 8
   },
   email: {
     type: String,
@@ -24,6 +20,14 @@ const userSchema = new Schema({
     required: true,
     minlength: 5,
   },
+  fav_styles: {
+    type: Schema.Types.ObjectId,
+    ref: 'Style'
+  },
+  made_styles: {
+    type: Schema.Types.ObjectId,
+    ref: 'Style'
+  }
 });
 
 userSchema.pre('save', async function (next) {
