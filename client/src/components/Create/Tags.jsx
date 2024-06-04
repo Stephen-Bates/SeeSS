@@ -38,9 +38,9 @@ const Tags = ({ addTag, removeTag, tags }) => {
       />
       {tags.length > 0 && (
         <Box my="4rem" bg="gray.200" borderRadius={8} p="2rem">
-            <Text fontWeight="bold" color="gray.500">
-              {tags.length} out of 10 tags
-            </Text>
+          <Text fontWeight="bold" color="gray.500">
+            {tags.length} out of 10 tags
+          </Text>
           <UnorderedList m="0" display="flex" flexWrap="wrap">
             {tags.map(({ tag, id }) => {
               return (
