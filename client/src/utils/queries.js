@@ -28,6 +28,20 @@ query singleUser($userId: ID!) {
 }
 `;
 
+export const QUERY_ME = gql`
+query me {
+    me {
+        _id
+        username
+        email
+        password
+        fav_styles
+        made_styles
+        followed_users
+    }
+}
+`;
+
 export const QUERY_STYLES = gql`
 query allStyles {
     styles {
@@ -44,6 +58,19 @@ query allStyles {
 export const QUERY_SINGLE_STYLE = gql`
 query singleStyle($styleId: ID!) {
     style(styleId: $styleId) {
+        _id
+        title
+        style_Text
+        creation_Date
+        username
+        tag
+    }
+}
+`;
+
+export const QUERY_MY_STYLES = gql`
+query myStyles {
+    myStyles {
         _id
         title
         style_Text
