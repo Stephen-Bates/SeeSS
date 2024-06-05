@@ -39,7 +39,7 @@ const typeDefs = `
       removeUser(userId: ID!): User
 
       addStyle(title: String!, style_Text: String!, username: String!, tag: [String]): Style
-      removeUser(styleId: ID!): Style
+      removeStyle(styleId: ID!): Style
       updateStyleTitle(styleId: ID!, title: String!): Style
       updateStyleText(styleId: ID!, text: String!): Style
       addStyleTags(styleId: ID!, tags: [String]!): Style
