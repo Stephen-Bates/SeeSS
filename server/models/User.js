@@ -30,7 +30,7 @@ const userSchema = new Schema({
   }],
   followed_users: [{
     type: Schema.Types.ObjectId,
-    ref: 'Style'
+    ref: 'User'
   }]
 });
 
