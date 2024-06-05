@@ -24,5 +24,6 @@ dist-ssr
 *.sln
 *.sw?
 .vim
-
+notes.md
 .DS_Store
+
