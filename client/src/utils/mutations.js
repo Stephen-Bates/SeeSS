@@ -74,22 +74,9 @@ mutation removeStyle($styleId: ID!) {
 }
 `;
 
-export const UPDATE_STYLE_TITLE = gql`
-mutation updateStyleTitle($styleId: ID!, $title: String!) {
-    updateStyleTitle(styleId: $styleId, title: $title) {
-        _id
-        title
-        style_Text
-        creation_Date
-        username
-        tag
-    }
-}
-`;
-
-export const UPDATE_STYLE_TEXT = gql`
-mutation updateStyleText($styleId: ID!, $style_Text: String!) {
-    updateStyleText(styleId: $styleId, style_Text: $style_Text) {
+export const UPDATE_STYLE = gql`
+mutation updateStyle($styleId: ID!, $title: String!, $style_Text: String!) {
+    updateStyle(styleId: $styleId, title: $title, style_Text: $style_Text) {
         _id
         title
         style_Text

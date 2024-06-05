@@ -40,8 +40,7 @@ const typeDefs = `
 
       addStyle(title: String!, style_Text: String!, username: String!, tag: [String]): Style
       removeStyle(styleId: ID!): Style
-      updateStyleTitle(styleId: ID!, title: String!): Style
-      updateStyleText(styleId: ID!, text: String!): Style
+      updateStyle(styleId: ID!, title: String!, style_Text: String!): Style
       addStyleTags(styleId: ID!, tags: [String]!): Style
       removeStyleTags(styleId: ID!, tags: [String]!): Style
     } 
