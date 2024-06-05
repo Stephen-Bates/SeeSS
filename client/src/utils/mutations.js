@@ -9,7 +9,7 @@ mutation addUser($username: String!, $email: String!, $password: String!) {
         password
         fav_styles
         made_styles
-        curators
+        followed_users
     }
 }
 `;
@@ -23,7 +23,7 @@ mutation removeUser($userId: ID!) {
         password
         fav_styles
         made_styles
-        curators
+        followed_users
     }
 }
 `;
@@ -32,10 +32,11 @@ export const ADD_STYLE = gql`
 mutation addStyle() {
     addStyle() {
         _id
-        styleText
+        title
+        style_Text
         creation_Date
         username
-        tags
+        tag
     }
 }
 `;
@@ -44,10 +45,11 @@ export const REMOVE_STYLE = gql`
 mutation removeStyle($styleId: ID!) {
     removeStyle(styleId: $styleId) {
         _id
-        styleText
+        title
+        style_Text
         creation_Date
         username
-        tags
+        tag
     }
 }
 `;

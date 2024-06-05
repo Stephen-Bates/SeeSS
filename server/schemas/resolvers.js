@@ -27,8 +27,8 @@ const resolvers = {
     },
 
     // Not certain which fields will be required or optional
-    addUser: async (parent, { }) => {
-      return User.create({});
+    addUser: async (parent, { title, style_Text, username, tag }) => {
+      return User.create({ title, style_Text, username, tag });
     },
     styleUser: async (parent, { styleId }) => {
       return Profile.findOneAndDelete({ _id: styleId });

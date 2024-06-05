@@ -6,16 +6,16 @@ const typeDefs = `
     password: String
     fav_styles: [Style]!
     made_styles: [Style]!
-    curators: [User]!
+    followed_users: [User]!
   }
 
   type Style {
     _id: ID
-    fileName: String
-    data: String
-    tags:[String]!
-    user: User
+    title: String
+    style_Text: String
     creation_Date: String
+    username: String
+    tag:[String]!
   }
 
   type Query {
@@ -30,10 +30,8 @@ const typeDefs = `
       addUser(username: String!, email: String!, password: String!): User
       removeUser(userId: ID!): User
 
-      #Not certain which fields will be required or optional
-      addStyle(): Style
+      addStyle(title: String!, style_Text: String!, username: String!, tag: [String]): Style
       removeUser(styleId: ID!): Style
-
     } 
 `;
 
