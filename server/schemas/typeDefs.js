@@ -18,20 +18,32 @@ const typeDefs = `
     tag:[String]
   }
 
+  type Auth {
+    token: ID!
+    user: User
+  }
+
   type Query {
       users: [User]!
       user(userId: ID!): User
+      me: User
 
       styles: [Style]!
       style(styleId: ID!): Style
+      myStyles: [Style]!
     }
 
     type Mutation {
-      addUser(username: String!, email: String!, password: String!): User
+      login(email: String!, password: String!): Auth
+      addUser(username: String!, email: String!, password: String!): Auth
       removeUser(userId: ID!): User
 
       addStyle(title: String!, style_Text: String!, username: String!, tag: [String]): Style
       removeUser(styleId: ID!): Style
+      updateStyleTitle(styleId: ID!, title: String!): Style
+      updateStyleText(styleId: ID!, text: String!): Style
+      addStyleTags(styleId: ID!, tags: [String]!): Style
+      removeStyleTags(styleId: ID!, tags: [String]!): Style
     } 
 `;
 
