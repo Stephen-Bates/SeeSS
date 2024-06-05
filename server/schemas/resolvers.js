@@ -97,7 +97,7 @@ const resolvers = {
       }
       throw AuthenticationError
     },
-    updateStyleTitle: async (parent, { styleId, title }) => {
+    updateStyle: async (parent, { styleId, title, style_Text }) => {
       // If a user is logged in properly
       if (context.user) {
         // Get user info
@@ -107,25 +107,7 @@ const resolvers = {
           // Update and return it
           return Style.findOneAndUpdate(
             { _id: styleId },
-            { $set: { title } },
-            { new: true },
-          );
-        }
-        throw AuthenticationError;
-      }
-      throw AuthenticationError;
-    },
-    updateStyleText: async (parent, { styleId, style_Text }) => {
-      // If a user is logged in properly
-      if (context.user) {
-        // Get user info
-        const user = await User.findOne({ _id: context.user._id });
-        // If style requested for update is one of user's styles
-        if (user.made_styles.includes(styleId)) {
-          // Update and return it
-          return Style.findOneAndUpdate(
-            { _id: styleId },
-            { $set: { style_Text } },
+            { $set: { title, style_Text } },
             { new: true },
           );
         }
