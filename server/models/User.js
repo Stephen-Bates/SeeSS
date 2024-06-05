@@ -25,7 +25,7 @@ const userSchema = new Schema({
     ref: 'Style'
   }],
   made_styles: [{
-    type: Schema.Types.ObjectId, 
+    type: Schema.Types.ObjectId,
     ref: 'Style'
   }],
   followed_users: [{
