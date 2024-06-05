@@ -1,33 +1,23 @@
-import { Box, Button, Flex } from '@chakra-ui/react';
+import { Box, Button, Flex, useToast } from '@chakra-ui/react';
 import { Parser as HtmlToReactParser } from 'html-to-react';
 import { nanoid } from 'nanoid';
 import { BsPencil } from 'react-icons/bs';
 import { FaRegEye } from 'react-icons/fa';
-
+import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import DrawerMenu from './DrawerMenu';
 import CodeEditor from './CodeEditor';
 import Tags from './Tags';
-
-const initialCodeState = `
-<style>
-.welcome {
-    color: #fff;
-    padding: 1rem;
-    background-color: #38B2AC;
-  }
-.lead-text {
- color: #A0AEC0;
-}
-</style>
-<h1 class="welcome">Welcome to SeeSS</h1>
-<p class="lead-text">Go ahead and start writing styles to create something amazing!</p>
-`;
+import TitleInput from './TitleInput';
+import { initialCodeState } from '../../utils/state';
 
 const Create = () => {
+  const toast = useToast();
+  const navigate = useNavigate();
   const [view, setView] = useState('edit');
   const [code, setCode] = useState(initialCodeState);
   const [tags, setTags] = useState([]);
+  const [title, setTitle] = useState('');
 
   const parser = new HtmlToReactParser();
   const reactElements = parser.parse(code);
@@ -45,10 +35,22 @@ const Create = () => {
     setCode(value);
   };
 
+  const handleToast = () => {
+    toast({
+      title: 'Style saved',
+      description: 'Your style has been successfully saved.',
+      status: 'success',
+      duration: 5000,
+      isClosable: true,
+      onCloseComplete: () => navigate('/profile'),
+    });
+  };
+
   const saveCode = () => {
-    if (tags.length && code.length) {
+    if (tags.length && code.length && title.trim().length > 0) {
       const tagsData = tags.map(({ tag }) => tag);
-      console.log('saving code', code, tagsData);
+      console.log('saving code', code, tagsData, title);
+            handleToast()
     }
   };
 
@@ -61,6 +63,10 @@ const Create = () => {
 
   const removeTag = (id) => {
     setTags((prevState) => [...prevState].filter((tag) => tag.id !== id));
+  };
+
+  const handleSetTitle = (newTitle) => {
+    setTitle(newTitle);
   };
 
   return (
@@ -95,14 +101,13 @@ const Create = () => {
             <>
               <CodeEditor code={code} handleSetCode={handleSetCode} />
               <Box my="10">
+                <TitleInput title={title} handleSetTitle={handleSetTitle} />
                 <Tags addTag={addTag} removeTag={removeTag} tags={tags} />
               </Box>
               <Flex justify="center" my="5rem">
-                {tags.length > 0 && (
-                  <Button onClick={saveCode} colorScheme="teal" size="lg">
-                    Save code
-                  </Button>
-                )}
+                <Button onClick={saveCode} colorScheme="teal" size="lg">
+                  Save code
+                </Button>
               </Flex>
             </>
           )}

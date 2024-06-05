@@ -1,21 +1,29 @@
-import { Box, ScaleFade, Flex, Input, Text, Tooltip, UnorderedList } from '@chakra-ui/react';
+import { Box, ScaleFade, Flex, Input, Text, Tooltip, UnorderedList, Button } from '@chakra-ui/react';
 import { useState } from 'react';
 import { CiShoppingTag } from 'react-icons/ci';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 
 const Tags = ({ addTag, removeTag, tags }) => {
   const [tag, setTag] = useState('');
+  const canAddNewTag = tag.trim().length > 0 && tags.length < 10;
 
   const handleOnChange = (e) => {
     setTag(e.target.value);
   };
 
   const handleOnKeyDown = (e) => {
-    const canAddNewTag = tag.trim().length > 0 && tags.length < 10;
     if (e.key.toLowerCase() === 'enter' && canAddNewTag) {
       addTag(tag);
       setTag('');
     }
+  };
+
+  const handleOnClick = () => {
+        if (canAddNewTag) {
+    addTag(tag);
+    setTag('');
+
+        }
   };
 
   return (
@@ -36,6 +44,9 @@ const Tags = ({ addTag, removeTag, tags }) => {
         w={['100%', '50%', '50%']}
         borderColor="gray.300"
       />
+      <Button onClick={handleOnClick} mx="0.5rem" colorScheme="blue">
+        Add
+      </Button>
       {tags.length > 0 && (
         <Box my="4rem" bg="gray.200" borderRadius={8} p="2rem">
           <Text fontWeight="bold" color="gray.500">
