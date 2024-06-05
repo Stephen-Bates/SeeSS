@@ -11,7 +11,7 @@ const styleSchema = new Schema({
     required: true,
   },
   creation_Date: {
-    type: DATE,
+    type: Date,
     ummatable: true,
     default: () => Date.now(),
   },
