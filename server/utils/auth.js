@@ -1,7 +1,6 @@
 const { GraphQLError } = require('graphql');
 const jwt = require('jsonwebtoken');
 
-//TODO: This should probably be moved to .env
 const secret = process.env.SESS_SECRET;
 const expiration = '2h';
 
