@@ -39,22 +39,22 @@ const resolvers = {
 
   Mutation: {
     login: async (parent, { email, password }) => {
-      const profile = await User.findOne({ email });
-      if (!profile) {
+      const user = await User.findOne({ email });
+      if (!user) {
         throw AuthenticationError;
       }
-      const correctPw = await profile.isCorrectPassword(password);
+      const correctPw = await user.isCorrectPassword(password);
       if (!correctPw) {
         throw AuthenticationError;
       }
-      const token = signToken(profile);
-      return { token, profile };
+      const token = signToken(user);
+      return { token, user };
     },
     addUser: async (parent, { username, email, password }) => {
       // Create a new User
       const user = await User.create({ username, email, password });
       // Sign a token
-      const token = signToken(profile);
+      const token = signToken(user);
       // Return the token and new User info
       return { token, user }
     },
