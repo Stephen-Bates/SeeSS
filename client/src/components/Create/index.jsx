@@ -34,8 +34,11 @@ const Create = () => {
   };
 
   const handleSetCode = (editor, data, value) => {
-    console.log(editor, data);
     setCode(value);
+  };
+
+  const populateCode = (existingCode) => {
+    setCode(existingCode);
   };
 
   const handleToast = () => {
@@ -87,11 +90,15 @@ const Create = () => {
     setTitle(newTitle);
   };
 
+  const handleSetTags = (tags) => {
+    setTags(tags);
+  };
+
   return (
     <Box minH="100vh">
       <Flex mb="1rem" flexDir={['column', 'column', 'row']} mt="10rem" position="relative">
         <Box flexGrow={1} w={['100%', '300px', '300px']}>
-          <DrawerMenu />
+          <DrawerMenu populateCode={populateCode} handleSetTitle={handleSetTitle} handleSetTags={handleSetTags} />
         </Box>
         <Box
           p="2rem"

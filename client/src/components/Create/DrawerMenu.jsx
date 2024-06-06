@@ -10,18 +10,32 @@ import {
   DrawerCloseButton,
   Button,
   Box,
+  Text,
+  Flex,
 } from '@chakra-ui/react';
 import { useRef } from 'react';
+import { nanoid } from 'nanoid';
 import { useQuery } from '@apollo/client';
 import { IoColorPaletteOutline } from 'react-icons/io5';
 import { QUERY_MY_STYLES } from '../../utils/queries';
+import Auth from '../../utils/auth';
 
-const DrawerMenu = () => {
-  const { loading, error, data } = useQuery(QUERY_MY_STYLES);
-  console.log(data, loading, error);
+const DrawerMenu = ({ populateCode, handleSetTags, handleSetTitle }) => {
+  const { loading, data } = useQuery(QUERY_MY_STYLES);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const btnRef = useRef();
+
+  const addIdToTag = (myStyle) => {
+    return myStyle.tag.map((tag) => ({ id: nanoid(), tag }));
+  };
+
+  const handleOnClick = (myStyle) => {
+    populateCode(myStyle.style_Text);
+    handleSetTags(addIdToTag(myStyle));
+    handleSetTitle(myStyle.title);
+    onClose();
+  };
 
   return (
     <>
@@ -44,10 +58,48 @@ const DrawerMenu = () => {
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
-          <DrawerHeader>Styles</DrawerHeader>
+          <DrawerHeader>
+            <Box>
+              <Text>Styles</Text>
+              <Text fontSize="0.85rem">{Auth.getProfile().data.username}</Text>
+            </Box>
+          </DrawerHeader>
 
           <DrawerBody>
-            {loading && <Spinner thickness="4px" speed="0.65s" emptyColor="gray.200" color="green.500" size="xl" />}
+            {loading && (
+              <Flex justify="center" my="5rem">
+                <Spinner thickness="4px" speed="0.65s" emptyColor="gray.200" color="green.500" size="xl" />
+              </Flex>
+            )}
+            {data &&
+              data.myStyles &&
+              data.myStyles.map((myStyle) => {
+                return (
+                  <Box
+                    onClick={() => handleOnClick(myStyle)}
+                    key={myStyle._id}
+                    cursor="pointer"
+                    my="2rem"
+                    p="0.5rem"
+                    borderRadius={8}
+                    border="1px solid"
+                    borderColor="gray.300"
+                  >
+                    <Box color="gray.500">
+                      <Text>{myStyle.title}</Text>
+                    </Box>
+                    <Flex flexWrap="wrap">
+                      {myStyle.tag.map((tag, index) => {
+                        return (
+                          <Box m="0.75rem" p="0.25rem" borderRadius={12} bg="blue.500" key={index}>
+                            <Text color="#fff">{tag}</Text>
+                          </Box>
+                        );
+                      })}
+                    </Flex>
+                  </Box>
+                );
+              })}
           </DrawerBody>
 
           <DrawerFooter></DrawerFooter>

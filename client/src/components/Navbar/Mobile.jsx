@@ -1,6 +1,6 @@
 import { AiOutlineClose } from 'react-icons/ai';
 import { Link as RouterLink } from 'react-router-dom';
-import { Box, Button, Flex, List, ListItem } from '@chakra-ui/react';
+import { Box, Button, Flex, List, ListItem, Text } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import Auth from '../../utils/auth';
 
@@ -41,6 +41,9 @@ const Mobile = ({ links, handleSetMobile }) => {
         >
           <AiOutlineClose />
         </Flex>
+        <Box fontSize="0.85rem" color="#fff" fontWeight="bold" mx="0.25rem">
+          <Text>{Auth.getProfile().data.username}</Text>
+        </Box>
         <List>
           {links.map((link, index) => {
             return (
