@@ -1,10 +1,14 @@
 import { useCallback, useState } from 'react';
+import { useMutation } from '@apollo/client';
 import { Flex, Box, Heading, Button } from '@chakra-ui/react';
 import { formState } from '../../utils/state';
 import FormInputField from '../Shared/FormInputField';
+import { ADD_USER } from '../../utils/mutations';
+import Auth from '../../utils/auth';
 
 const Register = () => {
   const [form, setForm] = useState(formState);
+  const [addUser] = useMutation(ADD_USER);
 
   const updateField = useCallback(
     (name, value, attribute) => {
@@ -32,12 +36,24 @@ const Register = () => {
     return !errors;
   };
 
-  const handleOnSubmit = (e) => {
+  const handleOnSubmit = async (e) => {
     e.preventDefault();
     clearErrors();
     if (!validateForm()) {
       return;
     }
+
+    const response = await addUser({
+      variables: {
+        username: `${form.firstName.value} ${form.lastName.value}`,
+        email: form.email.value,
+        password: form.password.value,
+      },
+    });
+
+    const token = response.data.addUser.token;
+    Auth.login(token);
+    console.log(token);
     console.log('SUBMIT FORM');
   };
 
