@@ -9,7 +9,7 @@ export default defineConfig({
     open: true,
     proxy: {
       '/graphql': {
-        target: `http://localhost:${(process.env.PORT + 1) || 3001}`,
+        target: `http://localhost:${(process.env.PORT || 3000) + 1}`,
         secure: false,
         changeOrigin: true,
       },
