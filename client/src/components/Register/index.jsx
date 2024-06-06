@@ -53,8 +53,6 @@ const Register = () => {
 
     const token = response.data.addUser.token;
     Auth.login(token);
-    console.log(token);
-    console.log('SUBMIT FORM');
   };
 
   return (

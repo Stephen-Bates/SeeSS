@@ -8,7 +8,7 @@ const userSchema = new Schema({
     type: String,
     required: true,
     unique: true,
-    minlength: 8
+    minlength: 8,
   },
   email: {
     type: String,
@@ -20,18 +20,24 @@ const userSchema = new Schema({
     required: true,
     minlength: 5,
   },
-  fav_styles: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Style'
-  }],
-  made_styles: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Style'
-  }],
-  followed_users: [{
-    type: Schema.Types.ObjectId,
-    ref: 'User'
-  }]
+  fav_styles: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Style',
+    },
+  ],
+  made_styles: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Style',
+    },
+  ],
+  followed_users: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+    },
+  ],
 });
 
 userSchema.pre('save', async function (next) {
@@ -44,7 +50,7 @@ userSchema.pre('save', async function (next) {
 });
 
 userSchema.methods.isCorrectPassword = async function (password) {
-  await bcrypt.compare(password, this.password);
+  return await bcrypt.compare(password, this.password);
 };
 
 const User = mongoose.model('User', userSchema);

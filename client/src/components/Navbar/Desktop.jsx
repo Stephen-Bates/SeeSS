@@ -1,6 +1,7 @@
-import { Box, Flex, Heading, List, ListItem } from '@chakra-ui/react';
+import { Box, Flex, Heading, List, ListItem, Button } from '@chakra-ui/react';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { Link as RouterLink } from 'react-router-dom';
+import Auth from '../../utils/auth';
 
 const Desktop = ({ links, handleSetMobile }) => {
   return (
@@ -8,7 +9,7 @@ const Desktop = ({ links, handleSetMobile }) => {
       <Flex display={['none', 'none', 'flex']} align="center" justify="space-between" p="0.25rem">
         <Heading color="white">SeeSS</Heading>
 
-        <List display="flex">
+        <List display="flex" alignItems="center">
           {links.map((link, index) => {
             return (
               <ListItem _hover={{ color: 'gray.200' }} mx="0.25rem" color="white" key={index}>
@@ -16,6 +17,13 @@ const Desktop = ({ links, handleSetMobile }) => {
               </ListItem>
             );
           })}
+          {Auth.loggedIn() && (
+            <ListItem p="0.25rem" mx="0.25rem">
+              <Button onClick={() => Auth.logout()} p="0" fontWeight="normal" colorScheme="transparent">
+                Logout
+              </Button>
+            </ListItem>
+          )}
         </List>
       </Flex>
       <Flex
