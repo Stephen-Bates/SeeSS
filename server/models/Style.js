@@ -4,10 +4,11 @@ const { Schema } = mongoose;
 const styleSchema = new Schema({
   title: {
     type: String,
+    maxlength: 3000,
     required: true,
   },
   style_Text: {
-    type: String, //I understand we may need to change this 
+    type: String,  
     required: true,
   },
   creation_Date: {
