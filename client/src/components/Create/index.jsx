@@ -1,5 +1,6 @@
 import { Box, Button, Flex, useToast } from '@chakra-ui/react';
 import { Parser as HtmlToReactParser } from 'html-to-react';
+import { useMutation } from '@apollo/client';
 import { nanoid } from 'nanoid';
 import { BsPencil } from 'react-icons/bs';
 import { FaRegEye } from 'react-icons/fa';
@@ -10,8 +11,10 @@ import CodeEditor from './CodeEditor';
 import Tags from './Tags';
 import TitleInput from './TitleInput';
 import { initialCodeState } from '../../utils/state';
+import { ADD_STYLE } from '../../utils/mutations';
 
 const Create = () => {
+  const [addStyle] = useMutation(ADD_STYLE);
   const toast = useToast();
   const navigate = useNavigate();
   const [view, setView] = useState('edit');
@@ -46,11 +49,26 @@ const Create = () => {
     });
   };
 
-  const saveCode = () => {
-    if (tags.length && code.length && title.trim().length > 0) {
-      const tagsData = tags.map(({ tag }) => tag);
-      console.log('saving code', code, tagsData, title);
-            handleToast()
+  const saveCode = async () => {
+    try {
+      if (tags.length && code.length && title.trim().length > 0) {
+        const tagsData = tags.map(({ tag }) => tag);
+
+        await addStyle({
+          variables: {
+            title,
+            style_Text: code,
+            tag: tagsData,
+          },
+        });
+
+        setTitle('');
+        setCode(initialCodeState);
+        setTags([]);
+        handleToast();
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 

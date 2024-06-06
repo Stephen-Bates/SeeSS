@@ -30,7 +30,8 @@ const resolvers = {
       if (context.user) {
         // Return their info
         // ***Not sure about this one***
-        return User.find({ _id: context.user._id }, 'made_styles').populate();
+        const user = await User.findOne({ _id: context.user._id }).populate('made_styles');
+        return user.made_styles || [];
       }
       // Otherwise, throw an error
       throw AuthenticationError;
@@ -39,7 +40,7 @@ const resolvers = {
 
   Mutation: {
     login: async (parent, { email, password }) => {
-      const user = await User.findOne({ email });
+      const user = await User.findOne({ email }).populate('made_styles');
       if (!user) {
         throw AuthenticationError;
       }
@@ -78,6 +79,9 @@ const resolvers = {
         // Update user savedBooks to remove book if not already there
         const user = await User.findOne({ _id: context.user._id });
         const style = await Style.create({ title, style_Text, username: user.username, tag });
+
+        await User.findByIdAndUpdate(context.user._id, { $push: { made_styles: style._id } }, { new: true });
+
         // Return style info
         return style;
       }

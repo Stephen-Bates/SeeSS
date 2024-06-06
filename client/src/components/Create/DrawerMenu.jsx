@@ -1,6 +1,7 @@
 import {
   useDisclosure,
   Drawer,
+  Spinner,
   DrawerBody,
   DrawerFooter,
   DrawerHeader,
@@ -11,9 +12,13 @@ import {
   Box,
 } from '@chakra-ui/react';
 import { useRef } from 'react';
+import { useQuery } from '@apollo/client';
 import { IoColorPaletteOutline } from 'react-icons/io5';
+import { QUERY_MY_STYLES } from '../../utils/queries';
 
 const DrawerMenu = () => {
+  const { loading, error, data } = useQuery(QUERY_MY_STYLES);
+  console.log(data, loading, error);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const btnRef = useRef();
@@ -41,7 +46,9 @@ const DrawerMenu = () => {
           <DrawerCloseButton />
           <DrawerHeader>Styles</DrawerHeader>
 
-          <DrawerBody>styles go here</DrawerBody>
+          <DrawerBody>
+            {loading && <Spinner thickness="4px" speed="0.65s" emptyColor="gray.200" color="green.500" size="xl" />}
+          </DrawerBody>
 
           <DrawerFooter></DrawerFooter>
         </DrawerContent>

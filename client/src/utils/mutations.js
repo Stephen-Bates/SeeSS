@@ -61,7 +61,7 @@ export const REMOVE_USER = gql`
 `;
 
 export const ADD_STYLE = gql`
-  mutation addStyle($title: String!, $style_Text: String!, $tag: String!) {
+  mutation addStyle($title: String!, $style_Text: String!, $tag: [String!]!) {
     addStyle(title: $title, style_Text: $style_Text, tag: $tag) {
       _id
       title
