@@ -9,11 +9,11 @@ console.log(`starting client server at ${process.env.PORT}`);
 export default defineConfig({
   plugins: [react()],
   server: {
-    port: process.env.PORT,
+    port: (process.env.PORT || 3000) + 1,
     open: true,
     proxy: {
       '/graphql': {
-        target: `http://localhost:${(process.env.PORT || 3000) + 1}`,
+        target: `http://localhost:${process.env.PORT}`,
         secure: false,
         changeOrigin: true,
       },
