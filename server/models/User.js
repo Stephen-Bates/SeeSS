@@ -20,14 +20,18 @@ const userSchema = new Schema({
     required: true,
     minlength: 5,
   },
-  fav_styles: {
+  fav_styles: [{
     type: Schema.Types.ObjectId,
     ref: 'Style'
-  },
-  made_styles: {
+  }],
+  made_styles: [{
     type: Schema.Types.ObjectId,
     ref: 'Style'
-  }
+  }],
+  followed_users: [{
+    type: Schema.Types.ObjectId,
+    ref: 'User'
+  }]
 });
 
 userSchema.pre('save', async function (next) {

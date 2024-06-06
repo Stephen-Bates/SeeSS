@@ -9,7 +9,7 @@ query allUsers {
         password
         fav_styles
         made_styles
-        curators
+        followed_users
     }
 }
 `;
@@ -23,7 +23,21 @@ query singleUser($userId: ID!) {
         password
         fav_styles
         made_styles
-        curators
+        followed_users
+    }
+}
+`;
+
+export const QUERY_ME = gql`
+query me {
+    me {
+        _id
+        username
+        email
+        password
+        fav_styles
+        made_styles
+        followed_users
     }
 }
 `;
@@ -32,10 +46,11 @@ export const QUERY_STYLES = gql`
 query allStyles {
     styles {
         _id
-        styleText
+        title
+        style_Text
         creation_Date
         username
-        tags
+        tag
     }
 }
 `;
@@ -44,10 +59,24 @@ export const QUERY_SINGLE_STYLE = gql`
 query singleStyle($styleId: ID!) {
     style(styleId: $styleId) {
         _id
-        styleText
+        title
+        style_Text
         creation_Date
         username
-        tags
+        tag
+    }
+}
+`;
+
+export const QUERY_MY_STYLES = gql`
+query myStyles {
+    myStyles {
+        _id
+        title
+        style_Text
+        creation_Date
+        username
+        tag
     }
 }
 `;
