@@ -38,9 +38,9 @@ const typeDefs = `
       addUser(username: String!, email: String!, password: String!): Auth
       removeUser(userId: ID!): User
 
-      addStyle(title: String!, style_Text: String!, username: String!, tag: [String]): Style
+      addStyle(title: String!, style_Text: String!, tag: [String]): Style
       removeStyle(styleId: ID!): Style
-      updateStyle(styleId: ID!, title: String!, style_Text: String!): Style
+updateStyle(styleId: ID!, title: String!, style_Text: String!, tag: [String!]!): Style
       addStyleTags(styleId: ID!, tags: [String]!): Style
       removeStyleTags(styleId: ID!, tags: [String]!): Style
     } 

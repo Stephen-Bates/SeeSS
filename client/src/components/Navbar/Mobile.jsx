@@ -1,7 +1,8 @@
 import { AiOutlineClose } from 'react-icons/ai';
 import { Link as RouterLink } from 'react-router-dom';
-import { Box, Flex, List, ListItem } from '@chakra-ui/react';
+import { Box, Button, Flex, List, ListItem, Text } from '@chakra-ui/react';
 import { useEffect } from 'react';
+import Auth from '../../utils/auth';
 
 const Mobile = ({ links, handleSetMobile }) => {
   const MOBILE_SIZE = 768;
@@ -40,6 +41,9 @@ const Mobile = ({ links, handleSetMobile }) => {
         >
           <AiOutlineClose />
         </Flex>
+        <Box fontSize="0.85rem" color="#fff" fontWeight="bold" mx="0.25rem">
+          <Text>{Auth.getProfile().data.username}</Text>
+        </Box>
         <List>
           {links.map((link, index) => {
             return (
@@ -56,6 +60,13 @@ const Mobile = ({ links, handleSetMobile }) => {
               </ListItem>
             );
           })}
+          {Auth.loggedIn() && (
+            <ListItem p="0.25rem" _hover={{ background: 'teal.900' }} my="0.5rem" mx="0.25rem">
+              <Button onClick={() => Auth.logout()} p="0" fontWeight="normal" colorScheme="transparent">
+                Logout
+              </Button>
+            </ListItem>
+          )}
         </List>
       </Box>
     </Box>

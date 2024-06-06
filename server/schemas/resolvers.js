@@ -30,20 +30,22 @@ const resolvers = {
       if (context.user) {
         // Return their info
         // ***Not sure about this one***
-        return User.find({ _id: context.user._id }, 'made_styles').populate();
+        const user = await User.findOne({ _id: context.user._id }).populate('made_styles');
+        return user.made_styles || [];
       }
       // Otherwise, throw an error
       throw AuthenticationError;
-    }
+    },
   },
 
   Mutation: {
     login: async (parent, { email, password }) => {
-      const user = await User.findOne({ email });
+      const user = await User.findOne({ email }).populate('made_styles');
       if (!user) {
         throw AuthenticationError;
       }
       const correctPw = await user.isCorrectPassword(password);
+      console.log(correctPw);
       if (!correctPw) {
         throw AuthenticationError;
       }
@@ -56,18 +58,18 @@ const resolvers = {
       // Sign a token
       const token = signToken(user);
       // Return the token and new User info
-      return { token, user }
+      return { token, user };
     },
     removeUser: async (parent, args, context) => {
       // If a user is logged in properly
       if (context.user) {
         // Update user savedBooks to remove book if not already there
-        const removedUser = await User.findOneAndDelete({ _id: context.user._id })
+        const removedUser = await User.findOneAndDelete({ _id: context.user._id });
         // Return user info
-        return removedUser
+        return removedUser;
       }
       // Otherwise, throw an error
-      throw AuthenticationError
+      throw AuthenticationError;
     },
 
     // Not certain which fields will be required or optional
@@ -75,13 +77,16 @@ const resolvers = {
       // If a user is logged in properly
       if (context.user) {
         // Update user savedBooks to remove book if not already there
-        const user = await User.findOne({ _id: context.user._id })
+        const user = await User.findOne({ _id: context.user._id });
         const style = await Style.create({ title, style_Text, username: user.username, tag });
+
+        await User.findByIdAndUpdate(context.user._id, { $push: { made_styles: style._id } }, { new: true });
+
         // Return style info
-        return style
+        return style;
       }
       // Otherwise, throw an error
-      throw AuthenticationError
+      throw AuthenticationError;
     },
     removeStyle: async (parent, { styleId }) => {
       // If a user is logged in properly
@@ -93,11 +98,11 @@ const resolvers = {
           // Remove it and return it
           return Style.findOneAndDelete({ _id: styleId });
         }
-        throw AuthenticationError
+        throw AuthenticationError;
       }
-      throw AuthenticationError
+      throw AuthenticationError;
     },
-    updateStyle: async (parent, { styleId, title, style_Text }) => {
+    updateStyle: async (parent, { styleId, title, style_Text, tag }, context) => {
       // If a user is logged in properly
       if (context.user) {
         // Get user info
@@ -105,11 +110,7 @@ const resolvers = {
         // If style requested for update is one of user's styles
         if (user.made_styles.includes(styleId)) {
           // Update and return it
-          return Style.findOneAndUpdate(
-            { _id: styleId },
-            { $set: { title, style_Text } },
-            { new: true },
-          );
+          return Style.findOneAndUpdate({ _id: styleId }, { $set: { title, style_Text, tag } }, { new: true });
         }
         throw AuthenticationError;
       }
@@ -123,11 +124,7 @@ const resolvers = {
         // If style requested for update is one of user's styles
         if (user.made_styles.includes(styleId)) {
           // Update and return it
-          return Style.findOneAndUpdate(
-            { _id: styleId },
-            { $addToSet: { tags } },
-            { new: true },
-          );
+          return Style.findOneAndUpdate({ _id: styleId }, { $addToSet: { tags } }, { new: true });
         }
         throw AuthenticationError;
       }
@@ -141,17 +138,13 @@ const resolvers = {
         // If style requested for update is one of user's styles
         if (user.made_styles.includes(styleId)) {
           // Update and return it
-          return Style.findOneAndUpdate(
-            { _id: styleId },
-            { $pull: { tags } },
-            { new: true },
-          );
+          return Style.findOneAndUpdate({ _id: styleId }, { $pull: { tags } }, { new: true });
         }
         throw AuthenticationError;
       }
       throw AuthenticationError;
     },
-  }
+  },
 };
 
 module.exports = resolvers;
