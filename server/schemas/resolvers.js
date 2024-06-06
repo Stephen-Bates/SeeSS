@@ -4,10 +4,10 @@ const { signToken, AuthenticationError } = require('../utils/auth');
 const resolvers = {
   Query: {
     users: async () => {
-      return User.find().populate(['fav_styles', 'made_styles', 'curators']);
+      return User.find().populate(['fav_styles', 'made_styles', 'followed_users']);
     },
     user: async (parent, { userId }) => {
-      return User.findOne({ _id: userId }).populate(['fav_styles', 'made_styles', 'curators']);
+      return User.findOne({ _id: userId }).populate(['fav_styles', 'made_styles', 'followed_users']);
     },
     me: async (parent, args, context) => {
       // If a user is logged in properly
