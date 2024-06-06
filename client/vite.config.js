@@ -5,7 +5,7 @@ import 'dotenv/config'
 
 // https://vitejs.dev/config/
 
-console.log(`starting client server at ${process.env.PORT}`);
+console.log(`starting client server at ${(process.env.PORT || 3000) + 1}`);
 export default defineConfig({
   plugins: [react()],
   server: {
