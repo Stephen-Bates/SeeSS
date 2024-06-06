@@ -1,7 +1,11 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import 'dotenv/config'
+
 
 // https://vitejs.dev/config/
+
+console.log(`starting client server at ${process.env.PORT}`);
 export default defineConfig({
   plugins: [react()],
   server: {
