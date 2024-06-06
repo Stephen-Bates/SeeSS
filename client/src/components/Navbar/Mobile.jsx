@@ -53,7 +53,7 @@ const Mobile = ({ links, handleSetMobile }) => {
                 color="white"
                 key={index}
               >
-                 <RouterLink to={link.path}>{link.text}</RouterLink>
+                <RouterLink to={link.path}>{link.text}</RouterLink>
               </ListItem>
             );
           })}

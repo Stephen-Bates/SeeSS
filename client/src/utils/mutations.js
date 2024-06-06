@@ -8,28 +8,27 @@ export const LOGIN = gql`
         _id
         username
         email
-    fav_styles {
-      _id
-      title
-      style_Text
-      creation_Date
-      username
-      tag
-    }
-    made_styles {
-      _id
-      title
-      style_Text
-      creation_Date
-      username
-      tag
-    }
-    followed_users {
-      _id
-      username
-      email
-    }
-
+        fav_styles {
+          _id
+          title
+          style_Text
+          creation_Date
+          username
+          tag
+        }
+        made_styles {
+          _id
+          title
+          style_Text
+          creation_Date
+          username
+          tag
+        }
+        followed_users {
+          _id
+          username
+          email
+        }
       }
     }
   }
