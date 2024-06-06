@@ -87,8 +87,8 @@ export const REMOVE_STYLE = gql`
 `;
 
 export const UPDATE_STYLE = gql`
-  mutation updateStyle($styleId: ID!, $title: String!, $style_Text: String!) {
-    updateStyle(styleId: $styleId, title: $title, style_Text: $style_Text) {
+  mutation updateStyle($styleId: ID!, $title: String!, $style_Text: String!, $tag: [String!]!) {
+    updateStyle(styleId: $styleId, title: $title, style_Text: $style_Text, tag: $tag) {
       _id
       title
       style_Text

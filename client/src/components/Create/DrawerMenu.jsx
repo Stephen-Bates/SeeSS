@@ -20,7 +20,7 @@ import { IoColorPaletteOutline } from 'react-icons/io5';
 import { QUERY_MY_STYLES } from '../../utils/queries';
 import Auth from '../../utils/auth';
 
-const DrawerMenu = ({ populateCode, handleSetTags, handleSetTitle }) => {
+const DrawerMenu = ({ handleSetMyStyleId, populateCode, handleSetTags, handleSetTitle }) => {
   const { loading, data } = useQuery(QUERY_MY_STYLES);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -31,6 +31,7 @@ const DrawerMenu = ({ populateCode, handleSetTags, handleSetTitle }) => {
   };
 
   const handleOnClick = (myStyle) => {
+    handleSetMyStyleId(myStyle._id);
     populateCode(myStyle.style_Text);
     handleSetTags(addIdToTag(myStyle));
     handleSetTitle(myStyle.title);
