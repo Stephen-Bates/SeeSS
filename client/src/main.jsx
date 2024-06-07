@@ -7,6 +7,7 @@ import RegisterRoute from './routes/RegisterRoute';
 import ProfileRoute from './routes/ProfileRoute';
 import CuratorsRoute from './routes/CuratorsRoute';
 import CreateRoute from './routes/CreateRoute';
+import StyleRoute from './routes/StyleRoute';
 import App from './App.jsx';
 import './index.css';
 import { ChakraProvider } from '@chakra-ui/react';
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
       {
         path: '/create',
         element: <CreateRoute />,
+      },
+      {
+        path: '/styles/:styleId',
+        element: <StyleRoute />,
       },
     ],
   },
