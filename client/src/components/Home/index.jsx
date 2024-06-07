@@ -42,7 +42,7 @@ ${styles} \n
                       {style.tag.map((tag, index) => {
                         return (
                           <Box m="0.75rem" p="0.25rem" borderRadius={12} bg="blue.500" key={index}>
-                            <Text color="#fff">{tag}</Text>
+                            <Text color="#fff">#{tag}</Text>
                           </Box>
                         );
                       })}
