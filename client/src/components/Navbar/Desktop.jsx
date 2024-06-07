@@ -1,13 +1,16 @@
 import { Box, Flex, Heading, List, ListItem, Button } from '@chakra-ui/react';
 import { GiHamburgerMenu } from 'react-icons/gi';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import Auth from '../../utils/auth';
 
 const Desktop = ({ links, handleSetMobile }) => {
+  const navigate = useNavigate();
   return (
     <Box bg="teal.500" minH="50px">
       <Flex display={['none', 'none', 'flex']} align="center" justify="space-between" p="0.25rem">
-        <Heading color="white">SeeSS</Heading>
+        <Heading cursor="pointer" onClick={() => navigate('/')} color="white">
+          SeeSS
+        </Heading>
 
         <List display="flex" alignItems="center">
           {links.map((link, index) => {
