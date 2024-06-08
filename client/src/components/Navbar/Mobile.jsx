@@ -1,10 +1,11 @@
 import { AiOutlineClose } from 'react-icons/ai';
-import { Link as RouterLink } from 'react-router-dom';
-import { Box, Button, Flex, List, ListItem, Text } from '@chakra-ui/react';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { Box, Button, Heading, Flex, List, ListItem, Text } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import Auth from '../../utils/auth';
 
 const Mobile = ({ links, handleSetMobile }) => {
+  const navigate = useNavigate();
   const MOBILE_SIZE = 768;
 
   const handleResize = (e) => {
@@ -41,9 +42,13 @@ const Mobile = ({ links, handleSetMobile }) => {
         >
           <AiOutlineClose />
         </Flex>
+        <Heading cursor="pointer" onClick={() => navigate('/')} color="white">
+          SeeSS
+        </Heading>
+                {Auth.loggedIn() && 
         <Box fontSize="0.85rem" color="#fff" fontWeight="bold" mx="0.25rem">
           <Text>{Auth.getProfile().data.username}</Text>
-        </Box>
+        </Box>}
         <List>
           {links.map((link, index) => {
             return (
