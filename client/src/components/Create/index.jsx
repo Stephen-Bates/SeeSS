@@ -12,11 +12,16 @@ import CodeEditor from './CodeEditor';
 import Tags from './Tags';
 import TitleInput from './TitleInput';
 import { initialCodeState } from '../../utils/state';
+import { QUERY_MY_STYLES } from '../../utils/queries';
 import { ADD_STYLE, UPDATE_STYLE } from '../../utils/mutations';
 
 const Create = () => {
-  const [addStyle] = useMutation(ADD_STYLE);
-  const [updateStyle] = useMutation(UPDATE_STYLE);
+  const [addStyle] = useMutation(ADD_STYLE, {
+    refetchQueries: [{ query: QUERY_MY_STYLES }],
+  });
+    const [updateStyle] = useMutation(UPDATE_STYLE, {
+        refetchQueries: [{query: QUERY_MY_STYLES}]
+    });
   const toast = useToast();
   const navigate = useNavigate();
   const [view, setView] = useState('edit');
