@@ -1,4 +1,4 @@
-import { Flex, Box, Heading, Button } from '@chakra-ui/react';
+import { Flex, Box, Heading, Button, Text } from '@chakra-ui/react';
 import { useState, useCallback } from 'react';
 import { useMutation } from '@apollo/client';
 import FormInputField from '../Shared/FormInputField';
@@ -9,6 +9,7 @@ import Auth from '../../utils/auth';
 const Login = () => {
   const [form, setForm] = useState(loginFormState);
   const [login, { error }] = useMutation(LOGIN);
+  const [formError, setFormError] = useState('');
 
   const updateField = useCallback(
     (name, value, attribute) => {
@@ -38,17 +39,22 @@ const Login = () => {
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
-    clearErrors();
-    if (!validateForm()) {
-      return;
+    try {
+      setFormError('');
+      clearErrors();
+      if (!validateForm()) {
+        return;
+      }
+
+      const response = await login({
+        variables: { email: form.email.value, password: form.password.value },
+      });
+
+      const token = response.data.login.token;
+      Auth.login(token);
+    } catch (err) {
+      setFormError('Invalid credentials');
     }
-
-    const response = await login({
-      variables: { email: form.email.value, password: form.password.value },
-    });
-
-    const token = response.data.login.token;
-    Auth.login(token);
   };
 
   return (
@@ -66,6 +72,11 @@ const Login = () => {
       >
         <Box mb="4rem" p="0.5rem" textAlign="center">
           <Heading color="gray.600">Login</Heading>
+          {formError.length > 0 && (
+            <Text fontSize="0.85rem" color="red.500">
+              {formError}
+            </Text>
+          )}
         </Box>
 
         <Box my="2rem">
