@@ -29,6 +29,9 @@
 
 <a id="cred"></a>
 ## Credits 
+Generating Icons for our app
+- https://realfavicongenerator.net/ 
+- https://www.craiyon.com/
  
 
 <a id="lice"></a>
